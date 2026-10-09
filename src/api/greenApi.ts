@@ -1,3 +1,11 @@
+import {
+  mockCheckAccount,
+  mockDeleteNotification,
+  mockGetStateInstance,
+  mockReceiveNotification,
+  mockSendMessage,
+} from './mockGreenApi'
+import { mockMode } from '../mockMode'
 import type { Credentials } from '../types'
 
 const API_ROOT = 'https://api.green-api.com'
@@ -140,6 +148,7 @@ export async function getStateInstance(
   credentials: Credentials,
   signal?: AbortSignal,
 ): Promise<string> {
+  if (mockMode) return mockGetStateInstance(credentials, signal)
   const body = await callApi(endpoint(credentials, 'getStateInstance'), { method: 'GET', signal })
   if (!body || typeof body !== 'object' || typeof (body as { stateInstance?: unknown }).stateInstance !== 'string') {
     throw new GreenApiError('Не удалось прочитать состояние инстанса.')
@@ -152,6 +161,7 @@ export async function checkAccount(
   phoneNumber: number,
   signal?: AbortSignal,
 ): Promise<AccountCheck> {
+  if (mockMode) return mockCheckAccount(credentials, phoneNumber, signal)
   const body = await callApi(endpoint(credentials, 'checkAccount'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -180,6 +190,7 @@ export async function sendMessage(
   message: string,
   signal?: AbortSignal,
 ): Promise<string> {
+  if (mockMode) return mockSendMessage(credentials, chatId, message, signal)
   const body = await callApi(endpoint(credentials, 'sendMessage'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -198,6 +209,7 @@ export async function receiveNotification(
   receiveTimeout = 20,
   signal?: AbortSignal,
 ): Promise<IncomingNotification | null> {
+  if (mockMode) return mockReceiveNotification(credentials, receiveTimeout, signal)
   const url = `${endpoint(credentials, 'receiveNotification')}?receiveTimeout=${receiveTimeout}`
   const body = await callApi(url, { method: 'GET', signal })
   if (body == null) return null
@@ -229,6 +241,7 @@ export async function deleteNotification(
   receiptId: number,
   signal?: AbortSignal,
 ): Promise<void> {
+  if (mockMode) return mockDeleteNotification(credentials, receiptId, signal)
   await callApi(endpoint(credentials, 'deleteNotification', `/${receiptId}`), {
     method: 'DELETE',
     signal,

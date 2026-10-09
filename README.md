@@ -13,6 +13,14 @@ npm run dev
 
 Откройте [http://localhost:5173](http://localhost:5173).
 
+Демо без аккаунта MAX:
+
+```bash
+npm run dev:mock
+```
+
+Откройте [http://localhost:5174](http://localhost:5174). Подойдут любые `idInstance` из цифр и любой токен. После отправки текста ответ появится в том же чате через пару секунд. Запросы в GREEN-API не уходят.
+
 ## Настройка инстанса
 
 1. В [консоли GREEN-API](https://console.green-api.com/) создайте инстанс MAX и авторизуйте его.
@@ -71,6 +79,14 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
+
+Demo without a MAX account:
+
+```bash
+npm run dev:mock
+```
+
+Open [http://localhost:5174](http://localhost:5174). Any numeric `idInstance` and any token are accepted. A few seconds after you send a text, a reply appears in the same chat. No requests are sent to GREEN-API.
 
 ## Instance setup
 

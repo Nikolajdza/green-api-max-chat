@@ -221,8 +221,32 @@ button:disabled {
   color: var(--accent);
 }
 
-.shell {
+.mock-note {
+  margin-top: 8px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.app-frame {
   height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-banner {
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.shell {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 76px minmax(280px, 360px) minmax(0, 1fr);
   background: var(--panel);

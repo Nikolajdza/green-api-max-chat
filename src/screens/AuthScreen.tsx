@@ -3,13 +3,14 @@ import type { FormEvent } from 'react'
 import { GreenApiError } from '../api/greenApi'
 import { useChat } from '../chat/context'
 import { MaxMark } from '../components/MaxMark'
+import { mockMode } from '../mockMode'
 
 export function AuthScreen() {
   const { login } = useChat()
   const idField = useId()
   const tokenField = useId()
-  const [idInstance, setIdInstance] = useState('')
-  const [apiTokenInstance, setApiTokenInstance] = useState('')
+  const [idInstance, setIdInstance] = useState(mockMode ? '1101000001' : '')
+  const [apiTokenInstance, setApiTokenInstance] = useState(mockMode ? 'demo' : '')
   const [showToken, setShowToken] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
@@ -37,6 +38,7 @@ export function AuthScreen() {
           <div>
             <h1>MAX</h1>
             <p>Текстовые сообщения через GREEN-API</p>
+            {mockMode ? <p className="mock-note">Демо: любые цифры и токен. Ответ придёт сам.</p> : null}
           </div>
         </div>
 
